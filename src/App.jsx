@@ -2,11 +2,13 @@ import Prima from "./Teller"
 import Zoek from "./Zoek"
 import Getprojects from "./getprojects"
 import { useState } from "react"
+import { Routes, Route, Link } from "react-router";
+
 
 
 function App() {
 
-const [resultaat, setResultaat] = useState("niks gevonden")
+const [resultaat, setResultaat] = useState("")
 
 
 return (

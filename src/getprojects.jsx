@@ -1,29 +1,22 @@
-import React,{useEffect, useState} from "react"
+import React, { useEffect, useState } from "react";
 
-function Getprojects(props){
+function Getprojects(props) {
+  const [projects, setprojects] = useState([]);
 
-    
-const [projects, setprojects] = useState([]);
+  async function haalreposop() {
+    const antwoord = await fetch(
+      "/Projects",
+    );
+    const jsonlijstje = await antwoord.json();
 
+    setprojects(jsonlijstje);
+  }
 
-async function haalreposop(){
+  useEffect(() => {
+    haalreposop();
+  }, []);
 
-const antwoord = await fetch("https://api.github.com/users/KsbaaSchool/repos");
-const jsonlijstje = await antwoord.json();
-
-setprojects(jsonlijstje);
-}
-    
-
-useEffect(
-
-    () => {
-haalreposop();
- }, [] );
-
-
-
-
+  /*
   const projectsnep = [
     {
         id: 1,
@@ -47,25 +40,23 @@ haalreposop();
     }
 ];
 
+*/
 
+  const toonDezeProjects = projects.filter((project) =>
+    project.titel.toLowerCase().includes(props.opgezocht.toLowerCase()),
+  );
 
+  const projectsasList = toonDezeProjects.map((project) => (
+    <li key={project.id}>
+      <b>{project.titel}</b>: &nbsp; {project.id}
+    </li>
+  ));
 
-const toonDezeProjects = projects.filter(project => project.name.toLowerCase().includes(props.opgezocht.toLowerCase()))
-
-const projectsasList = toonDezeProjects.map(project => <li key = {project.id}> <b>{project.name}</b>: &nbsp; {project.id}</li>  );
-
-
-return(
-
-
-<>
-
-<ul>{projectsasList}</ul>
-
-</>
-
-)
-
+  return (
+    <>
+      <ul>{projectsasList}</ul>
+    </>
+  );
 }
 
-export default Getprojects
+export default Getprojects;
