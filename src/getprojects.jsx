@@ -10,10 +10,10 @@ function Getprojects(props) {
     const jsonlijstje = await antwoord.json();
 
     setprojects(jsonlijstje);
-  }
+  } 
 
   useEffect(() => {
-    haalreposop();
+   haalreposop();
   }, []);
 
   /*
