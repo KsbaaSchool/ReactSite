@@ -9,12 +9,17 @@
     import Studenten from  "./Kinderen/studenten";
     import Nietgevonden from "./old trash/Nietgevonden";
     import ProjectDetails from "./getprojects enzo/ProjectDetails";
+import { createContext, useContext, useEffect, useState } from "react";
+import { ingelogdAScontext } from "./loginstuff/Gebruikerscontext";
 
     const router = createBrowserRouter(
         createRoutesFromElements(
     <Route path="/" element={<RoutLayout/>}>
 
-    <Route index element={<Home/>} />
+
+    <Route index element={ <Home/>} />
+
+ {/* <Route path="loginpagina"  element={<Loginpagina/>}/>  */}
 
     <Route path="faa" element={<Pagina/>} />
 
@@ -27,8 +32,8 @@
     </Route>
 
     <Route path = "projectdetails/:id" element={<ProjectDetails/>} />
-    <Route path = "*" element = {<Nietgevonden/>}/>
 
+    <Route path = "*" element = {<Nietgevonden/>}/>
 
     </Route>
 
@@ -37,11 +42,47 @@
     ) 
 
 
+   
+
+
     function App() {
+
+
+    const [gebruiker, setgebruiker] = useState();
+
+
+
+     async function checkAccount(){
+
+        try{
+const antwoord = await fetch("/Account/check_Account");
+
+if (antwoord.ok){
+const gebruikerEnRols = await antwoord.json();
+
+setgebruiker(gebruikerEnRols);
+} else {console.log("geen gebruiker gevonden G " + antwoord.status)}
+
+
+        } catch(error) {console.log("kan niet accountcheckefetch door "
+             + error)}
+
+    }
+
+        useEffect( () => {
+          checkAccount() }
+            ,[]);
+
 
     return (
 
+
+        <ingelogdAScontext.Provider value={{gebruiker, setgebruiker, checkAccount}}>
+
     <RouterProvider router={router} />
+
+
+        </ingelogdAScontext.Provider>
 
 
     );

@@ -1,7 +1,10 @@
-import React,{useState} from "react";
+import React,{useContext, useState} from "react";
 
-function Zoek (props) {
+import { projectenlijstcontext } from "../Home";
 
+function Zoek () {
+
+const setResultaat = useContext(projectenlijstcontext);
 
 // const updateResultaat = (e) => {e.preventDefault();
    // setResultaat(e.target.zoekbalk.value )}
@@ -11,7 +14,7 @@ function Zoek (props) {
 <>
 <form className="zoekbalk">
 
-<input name = "zoekbalk" className="inputvalue" placeholder="typ iets" onChange={ (e) => props.setResultaat(e.target.value)} />
+<input name = "zoekbalk" className="inputvalue" placeholder="typ iets" onChange={ (e) => setResultaat(e.target.value)} />
 
 </form>
 

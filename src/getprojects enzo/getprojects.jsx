@@ -1,10 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
 import projectsnep from "./NepProjects"
+import { projectenlijstcontext } from "../Home";
+import { ingelogdAScontext } from "../loginstuff/Gebruikerscontext";
 
-
-function Getprojects(props) {
+function Getprojects() {
   const [projects, setprojects] = useState([]);
+
+const opgezocht = useContext(projectenlijstcontext);
+const { gebruiker }  = useContext(ingelogdAScontext)
+
+function bestaatgebruiker(){
+
+if(gebruiker) return true
+else false
+
+}
+
+function magVerwijderen(){
+
+if (gebruiker.usersrol.includes("Editor")) return true
+else return false
+
+
+  
+}
 
   async function haalreposop() {
   
@@ -33,7 +53,7 @@ else { setprojects(projectsnep); }
 
 
   const toonDezeProjects = projects.filter((project) =>
-    project.titel.toLowerCase().includes(props.opgezocht.toLowerCase()),
+    project.titel.toLowerCase().includes(opgezocht.toLowerCase()),
   );
 
   const projectsasList = toonDezeProjects.map((project) => (
@@ -49,7 +69,10 @@ else { setprojects(projectsnep); }
 
   return (
     <>
+
+    
       <ul>{projectsasList}</ul>
+{bestaatgebruiker() && magVerwijderen() && <button>VerwijderALLES</button>  }
     </>
   );
 }
