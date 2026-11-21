@@ -1,43 +1,51 @@
 
-import {createBrowserRouter, Routes, Route, Link,
-      NavLink, createRoutesFromElements, RouterProvider } from "react-router";
-import Pagina from "./pagina"
-import Home from "./Home"
-import RoutLayout from "./RoutLayout";
-import Docentengek from "./docentengek";
-import TestLayout from "./TestLayout";
-import Studenten from  "./studenten"
-const router = createBrowserRouter(
-    createRoutesFromElements(
-<Route path="/" element={<RoutLayout/>}>
+    import {createBrowserRouter, Routes, Route, Link,
+        NavLink, createRoutesFromElements, RouterProvider } from "react-router";
+    import Pagina from "./pagina"
+    import Home from "./Home"
+    import RoutLayout from "./Layouts/RoutLayout";
+    import Docentengek from "./Kinderen/docentengek";
+    import TestLayout from "./Layouts/TestLayout";
+    import Studenten from  "./Kinderen/studenten";
+    import Nietgevonden from "./old trash/Nietgevonden";
+    import ProjectDetails from "./getprojects enzo/ProjectDetails";
 
-<Route index element={<Home/>} />
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+    <Route path="/" element={<RoutLayout/>}>
 
-<Route path="faa" element={<Pagina/>} />
+    <Route index element={<Home/>} />
 
-<Route path="fam" element={<TestLayout/>} >
-<Route path="docent/:id" element={<Docentengek/>}/>
-<Route path = "student" element={<Studenten/>} />
+    <Route path="faa" element={<Pagina/>} />
 
+    <Route path="fam" element={<TestLayout/> } >
 
-</Route>
+    <Route path="docent" element={<Docentengek/>}/>
 
-</Route>
+    <Route path = "student" element={<Studenten/>} />
 
+    </Route>
 
-    )
-) 
-
-
-function App() {
-
-return (
-
-<RouterProvider router={router} />
+    <Route path = "projectdetails/:id" element={<ProjectDetails/>} />
+    <Route path = "*" element = {<Nietgevonden/>}/>
 
 
-);
+    </Route>
 
-}
 
-export default App
+        )
+    ) 
+
+
+    function App() {
+
+    return (
+
+    <RouterProvider router={router} />
+
+
+    );
+
+    }
+
+    export default App

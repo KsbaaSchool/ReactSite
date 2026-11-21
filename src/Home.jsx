@@ -1,10 +1,12 @@
-import Prima from "./Teller"
-import Zoek from "./Zoek"
-import Getprojects from "./getprojects"
+import Prima from "./old trash/Teller"
+import Zoek from "./old trash/Zoek"
+import Getprojects from "./getprojects enzo/getprojects"
 import { useState } from "react"
 
 
 function Home() {
+
+const projectenlijstcontext = createContext();
 
 const [resultaat, setResultaat] = useState("")
 
@@ -19,10 +21,16 @@ return (
 <p>vndg we chille mense</p>
 
 
+<projectenlijstcontext.Provider value={setResultaat}>
+<Zoek/>
+</projectenlijstcontext.Provider>
 
-<Zoek setResultaat = {setResultaat}/>
 
-<Getprojects opgezocht = {resultaat}/>
+<projectenlijstcontext.Provider value={resultaat}>
+<Getprojects/>
+</projectenlijstcontext.Provider>
+
+
 </>
 )  
 

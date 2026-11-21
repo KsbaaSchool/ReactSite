@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       "/Projects": "http://localhost:5029",
       "/Account": "http://localhost:5029",
-      "/Blogpost": "http://localhost:5029",
+      "/BlogPost": "http://localhost:5029",
     },
   },
 });
